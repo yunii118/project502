@@ -4,6 +4,7 @@ package org.choongang.board.controllers;
 import lombok.RequiredArgsConstructor;
 import org.choongang.board.entities.BoardData;
 import org.choongang.board.repositories.BoardDataRepository;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,5 +25,13 @@ public class BoardControllers {
         data.setContent("내용");
 
         boardDataRepository.saveAndFlush(data);
+    }
+
+    @ResponseBody
+    @GetMapping("/test2")
+    //@PreAuthorize("hasAuthority('ADMIN')")
+    @Secured({"ADMIN", "MANAGER"})
+    public void test2(){
+        System.out.println("test2!!");
     }
 }
