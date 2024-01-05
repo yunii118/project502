@@ -64,4 +64,15 @@ public class Utils {
     public static String getMessage(String code) {
         return getMessage(code, null);
     }
+
+    /**
+     * \n 또는 \r\n -> <br />로 변경해줌
+     * @param str
+     * @return
+     */
+    public String nl2br(String str){
+        str = str.replaceAll("\\n", "<br />").replaceAll("\\r", "");
+
+        return str;
+    }
 }

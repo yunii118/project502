@@ -40,7 +40,7 @@ public class SecurityConfig {
         // hasRole('ADMIN')
         http.authorizeHttpRequests(c -> {
             c.requestMatchers("/mypage/**").authenticated() // 회원 전용
-                    .requestMatchers("/admin/**").hasAnyAuthority("ADMIN", "MANAGER") // 둘만 접근가능
+                    //.requestMatchers("/admin/**").hasAnyAuthority("ADMIN", "MANAGER") // 둘만 접근가능
                     .anyRequest().permitAll();// 그 외 모든 페이지는 접근 가능
         });
         http.exceptionHandling(c -> {

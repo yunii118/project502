@@ -49,7 +49,9 @@
         </dl>
 
         <div th:text="#{회원가입_약관}"></div>
-        <div class="terms">약관...</div>
+        <div class="terms" th:utext="${@utils.nl2br(siteConfig.joinTerms)}"></div>
+        <!-- 줄개행 태그 넣지 않아 줄개행 못함
+            줄개행문자 -> br태그로 변경해줄 편의기능 추가-->
         <div class="terms_agree">
             <input type="checkbox" name="agree" value="true" id="agree" th:field="*{agree}">
             <label for="agree" th:text="#{회원가입_약관에_동의합니다.}"></label>
