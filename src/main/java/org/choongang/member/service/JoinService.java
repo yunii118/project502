@@ -32,13 +32,14 @@ public class JoinService {
         }
         // 비밀번호 BCrypt로 해시화
         String hash = encoder.encode(form.getPassword());
-       Member member = new Member();
-       member.setEmail(form.getEmail());
-       member.setName(form.getName());
-       member.setPassword(hash);
-       member.setUserId(form.getUserId());
+        Member member = new Member();
+        member.setEmail(form.getEmail());
+        member.setName(form.getName());
+        member.setPassword(hash);
+        member.setUserId(form.getUserId());
+        member.setGid(form.getGid());
 
-       process(member);
+        process(member);
        // 회원가입시 일반사용자 권한 부여
         Authorities authorities = new Authorities();
         authorities.setMember(member);

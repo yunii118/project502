@@ -1,13 +1,18 @@
 package org.choongang.member.controllers;
 
+import jakarta.persistence.Transient;
 import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
+import java.util.UUID;
+
 @Data
 public class RequestJoin {
+
+    private String gid = UUID.randomUUID().toString();
     @NotBlank
     @Email
     private String email;
@@ -23,5 +28,6 @@ public class RequestJoin {
     private String name;
     @AssertTrue
     private boolean agree;
+
 
 }

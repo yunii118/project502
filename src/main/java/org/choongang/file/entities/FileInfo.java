@@ -1,14 +1,19 @@
 package org.choongang.file.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.choongang.commons.entities.BaseMember;
 
+import java.util.List;
 import java.util.UUID;
 
 @Data
-//@Builder
-//@NoArgsConstructor @AllArgsConstructor
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(indexes = {
         @Index(name="idx_fileInfo_gid", columnList = "gid"),
@@ -30,6 +35,21 @@ public class FileInfo extends BaseMember {
 
     @Column(length = 30)
     private String extension;
+
+    @Column(length = 65)
+    private String fileType;
+
+    @Transient
+    private String filePath;// 서버에 실제 올라간 주소
+
+    @Transient
+    private String fileUrl; // 브라우저 주소창에 입력해서 접근할 수 있는 경로
+
+    @Transient
+    private List<String> thumbsPath; // 썸네일 이미지 경로
+
+    @Transient
+    private List<String> thumbsUrl; // 브라우저 주소창에 입력해서 접근할 수 있는 경로
 
     private boolean done;
 }

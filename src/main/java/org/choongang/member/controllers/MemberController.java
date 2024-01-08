@@ -13,6 +13,9 @@ import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 @RequestMapping("/member")
 @RequiredArgsConstructor
@@ -24,6 +27,7 @@ public class  MemberController implements ExceptionProcessor {
     @GetMapping("/join")
     public String join(@ModelAttribute RequestJoin form, Model model){
         commonProcess("join", model);
+
         return utils.tpl("member/join");
     }
 
@@ -83,11 +87,19 @@ public class  MemberController implements ExceptionProcessor {
     private void commonProcess(String mode, Model model){
         mode = StringUtils.hasText(mode) ? mode : "join";
         String pageTitle = Utils.getMessage("회원가입", "commons");
+        List<String> addCommonScript = new ArrayList<>();
+        List<String> addScript = new ArrayList<>(); // 프론트 자바 스크립트 추가
+
         if(mode.equals("login")){
             pageTitle = Utils.getMessage("로그인", "commons");
+        }else if(mode.equals("join")){
+            addCommonScript.add("fileManager");
+            addScript.add("member/form");
         }
 
         model.addAttribute("pageTitle", pageTitle);
+        model.addAttribute("addCommonScript", addCommonScript);
+        model.addAttribute("addScript", addScript);
     }
 
 }
