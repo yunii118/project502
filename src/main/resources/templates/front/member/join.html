@@ -7,7 +7,7 @@
 
     <form name="frmJoin" method="post" th:action="@{/member/join}" autocomplete="off" th:object="${requestJoin}">
         <div class="error global" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
-
+        <input type="hidden" name="gid" th:field="*{gid}">
         <dl>
             <dt th:text="#{이메일}"></dt>
             <dd>
@@ -47,7 +47,13 @@
                 <div class="error" th:each="err : ${#fields.errors('name')}" th:text="${err}"></div>
             </dd>
         </dl>
-
+        <!-- 프로필 사진 업로드 - gid 필요-->
+        <dl>
+            <dt th:text="#{프로필_이미지}"></dt>
+            <dd>
+                <button type="button" class="upload_files" th:text="#{이미지_업로드}"></button>
+            </dd>
+        </dl>
         <div th:text="#{회원가입_약관}"></div>
         <div class="terms" th:utext="${@utils.nl2br(siteConfig.joinTerms)}"></div>
         <!-- 줄개행 태그 넣지 않아 줄개행 못함
