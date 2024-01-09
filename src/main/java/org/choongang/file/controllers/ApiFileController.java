@@ -21,9 +21,10 @@ public class ApiFileController implements ExceptionRestProcessor {
     public JSONData<List<FileInfo>> upload(@RequestParam("file") MultipartFile[] files,
                            @RequestParam(name = "gid", required = false) String gid,
                            @RequestParam(name = "location", required = false) String location,
-                                           @RequestParam(value = "imageOnly", required = false) boolean imgageOnly){
+                                           @RequestParam(value = "imageOnly", required = false) boolean imgageOnly,
+                                           @RequestParam(name="singleFile", required=false) boolean singleFile){
 
-        List<FileInfo> uploadedFiles = uploadService.upload(files, gid, location, imgageOnly);
+        List<FileInfo> uploadedFiles = uploadService.upload(files, gid, location, imgageOnly, singleFile);
         return new JSONData<>(uploadedFiles);
     }
 
