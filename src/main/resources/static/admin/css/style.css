@@ -162,6 +162,32 @@ h2{
     background: #ccc;
     font-weight: normal;
 }
+
+.table_rows{
+    border-spacing: 0;
+    width: 100%;
+    background: #fff;
+}
+.table_rows thead th{
+    background: #596b99;
+    color: #fff;
+    font-weight: normal;
+    padding: 7px 10px;
+}
+.table_rows thead th + th{
+    border-left: 1px solid #fff;
+}
+.table_rows tbody td{
+    border-bottom: 1px solid #ccc;
+    padding: 7px 10px;
+}
+
+.table_actions{
+    background: #fff;
+    padding: 7px 10px;
+    border-bottom: 1px solid #596b99;
+}
+
 /*테이블 공통 E*/
 
 /* 입력 공통 S*/

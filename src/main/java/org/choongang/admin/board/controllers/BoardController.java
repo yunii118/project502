@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.choongang.admin.menus.Menu;
 import org.choongang.admin.menus.MenuDetail;
 import org.choongang.commons.ExceptionProcessor;
+import org.choongang.member.constants.Authority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -103,12 +104,15 @@ public class BoardController implements ExceptionProcessor {
             addCommonScript.add("ckeditor5/ckeditor");
             addCommonScript.add("fileManager");
             addScript.add("board/form");
+
+            model.addAttribute("authorities", Authority.getList());
         }
 
         model.addAttribute("pageTitle", pageTitle);
         model.addAttribute("subMenuCode", mode);
         model.addAttribute("addCommonScript", addCommonScript);
         model.addAttribute("addScript", addScript);
+        model.addAttribute("subMenuCode", mode);
 
     }
 }
