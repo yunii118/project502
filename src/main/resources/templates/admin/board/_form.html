@@ -22,8 +22,8 @@
                 <div class="error" th:each="err : ${#fields.errors('bid')}" th:text="${err}"></div>
             </td>
             <td th:if="*{mode == 'edit'}">
-                <input type="hidden" name="bid" th:field="*{bid}" readonly>
-                <th:block th:field="*{bid}"></th:block>
+                <input type="hidden" name="bid" th:field="*{bid}">
+                <th:block th:text="*{bid}"></th:block>
             </td>
         </tr>
         <tr>
@@ -102,7 +102,7 @@
                 <input type="radio" name="locationAfterWriting" value="list" id="locationAfterWriting_list" th:field="*{locationAfterWriting}">
                 <label for="locationAfterWriting_list">글목록</label>
                 <input type="radio" name="locationAfterWriting" value="view" id="locationAfterWriting_view" th:field="*{locationAfterWriting}">
-                <label for="locationAfterWriting_view">게시글</label>
+                <label for="locationAfterWriting_view">글보기</label>
             </td>
         </tr>
         <tr>
@@ -131,7 +131,7 @@
         <tr>
             <th width="180">분류</th>
             <td>
-                <textarea name="category" placeholder="여러 분류 입력시 줄개행하여 입력" th:field="*{category}"></textarea>
+                <textarea name="category" placeholder="여러 분류는 줄개행하여 입력"  th:field="*{category}"></textarea>
             </td>
         </tr>
     </table>
@@ -143,7 +143,7 @@
             <td>
                 <th:block th:each="auth : ${authorities}">
                     <input type="radio" name="listAccessType" th:value="${auth[0]}" th:id="${'listAccessType_' + auth[0]}" th:field="*{listAccessType}">
-                    <label th:for="${'listAccessType_' + auth[0]}" th:text=${auth[1]}></label>
+                    <label th:for="${'listAccessType_' + auth[0]}" th:text="${auth[1]}"></label>
                 </th:block>
 
             </td>
@@ -186,7 +186,6 @@
         </tr>
     </table>
 
-
     <h2>게시판 상단</h2>
     <table class="table_cols mb30">
         <tr>
@@ -198,7 +197,11 @@
                     <i class="xi-image-o"></i>
                     이미지 추가
                 </button>
-                <div class="uploaded_files" id="uploaded_files_html_top"></div>
+                <div class="uploaded_files" id="uploaded_files_html_top">
+                    <th:block th:each="item : *{htmlTopImages}">
+                        <span th:replace="~{common/_editor_file::item}"></span>
+                    </th:block>
+                </div>
             </td>
         </tr>
     </table>
@@ -211,10 +214,14 @@
                 <textarea id="html_bottom" name="htmlBottom" th:field="*{htmlBottom}"></textarea>
                 <button type="button" class="upload_files sbtn"
                         data-location="html_bottom" data-image-only="true">
-                    <i class="xi-image-o"></i>
-                    이미지 추가
+                <i class="xi-image"></i>
+                이미지 추가
                 </button>
-                <div class="uploaded_files" id="uploaded_files_html_bottom"></div>
+                <div class="uploaded_files" id="uploaded_files_html_bottom">
+                    <th:block th:each="item : *{htmlBottomImages}">
+                        <span th:replace="~{common/_editor_file::item}"></span>
+                    </th:block>
+                </div>
             </td>
         </tr>
     </table>

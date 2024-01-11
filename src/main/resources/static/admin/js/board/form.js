@@ -43,3 +43,11 @@ function callbackFileUpload(files) {
         /* 템플릿 데이터 치환 E */
     }
 }
+
+/**
+* 에디터에 이미지 추가
+*
+*/
+function insertImage(editor, source) {
+    editor.execute('insertImage', { source });
+}

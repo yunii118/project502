@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("/board")
 @RequiredArgsConstructor
-public class BoardControllers {
+public class BoardController {
 
     private final BoardDataRepository boardDataRepository;
 
