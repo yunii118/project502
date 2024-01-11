@@ -4,11 +4,15 @@ package org.choongang.member.service;
 import lombok.RequiredArgsConstructor;
 import org.choongang.file.service.FileUploadService;
 import org.choongang.member.Authority;
+import org.choongang.member.constants.Gender;
 import org.choongang.member.controllers.JoinValidator;
 import org.choongang.member.controllers.RequestJoin;
+import org.choongang.member.entities.AbstractMember;
 import org.choongang.member.entities.Authorities;
+import org.choongang.member.entities.Farmer;
 import org.choongang.member.entities.Member;
 import org.choongang.member.repositories.AuthoritiesRepository;
+import org.choongang.member.repositories.FarmerRepository;
 import org.choongang.member.repositories.MemberRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -21,6 +25,8 @@ import org.springframework.validation.Errors;
 public class JoinService {
 
     private final MemberRepository memberRepository;
+    private final FarmerRepository farmerRepository;
+
     private final AuthoritiesRepository authoritiesRepository;
     private final JoinValidator validator;
     private final PasswordEncoder encoder;
@@ -34,17 +40,37 @@ public class JoinService {
         }
         // 비밀번호 BCrypt로 해시화
         String hash = encoder.encode(form.getPassword());
-        Member member = new Member();
+        String mType = form.getMTYPE();
+        AbstractMember member = mType.equals("F") ? new Farmer() : new Member();
         member.setEmail(form.getEmail());
-        member.setName(form.getName());
+        member.setUsername(form.getUsername());
         member.setPassword(hash);
         member.setUserId(form.getUserId());
         member.setGid(form.getGid());
+        member.setNickname(form.getNickname());
+        member.setTel(form.getTel());
 
-        process(member);
+        if(mType.equals("F")) {
+            // 농장회원
+            Farmer farmer = (Farmer) member;
+            farmer.setFarmTitle(form.getFarmTitle());
+            farmer.setFarmZoneCode(form.getFarmZoneCode());
+            farmer.setFarmAddress(form.getFarmAddress());
+            farmer.setFarmAddressSub(form.getFarmAddressSub());
+
+            processFarmer(farmer);
+        }else{
+            // 일반회원
+            Member _member = (Member) member;
+            _member.setGender(Gender.valueOf(form.getGender()));
+            _member.setBirthdate(form.getBirthdate());
+
+            processMember(_member);
+        }
+
        // 회원가입시 일반사용자 권한 부여
         Authorities authorities = new Authorities();
-        authorities.setMember(member);
+        //authorities.setMember(member);
         authorities.setAuthority(Authority.USER);
         authoritiesRepository.saveAndFlush(authorities);
 
@@ -54,8 +80,11 @@ public class JoinService {
 
     }
 
-    public void process(Member member){
+    public void processMember(Member member){
         memberRepository.saveAndFlush(member);
+    }
 
+    public void processFarmer(Farmer member){
+        farmerRepository.saveAndFlush(member);
     }
 }
