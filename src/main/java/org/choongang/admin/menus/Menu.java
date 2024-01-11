@@ -20,6 +20,13 @@ public class Menu {
                 new MenuDetail("add", "게시판등록", "/admin/board/add"),
                 new MenuDetail("posts", "게시글관리", "/admin/board/posts")
         ));
+
+        menus.put("product", Arrays.asList(
+                new MenuDetail("list", "상품목록", "/admin/product"),
+                new MenuDetail("add", "상품추가", "/admin/product/add"),
+                new MenuDetail("category", "상품분류", "/admin/product/category")
+
+        ));
     }
 
     public static List<MenuDetail> getMenus(String code) {

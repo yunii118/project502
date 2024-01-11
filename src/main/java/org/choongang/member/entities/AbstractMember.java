@@ -43,6 +43,10 @@ public abstract class AbstractMember extends Base {
     private String tel;
 
     @ToString.Exclude
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
+    private List<Address> address = new ArrayList<>();
+
+    @ToString.Exclude
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "member")
     private List<Authorities> authorities = new ArrayList<>();
     
